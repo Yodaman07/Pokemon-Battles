@@ -1,0 +1,4 @@
+"/Users/ayaan/Applications/JetBrains Toolbox/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/Users/ayaan/Applications/JetBrains Toolbox/CLion.app/Contents/bin/ninja/mac/ninja" -G Ninja -S /Users/ayaan/CLionProjects/Pokemon_Battles -B /Users/ayaan/CLionProjects/Pokemon_Battles/cmake-build-debug
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/ayaan/CLionProjects/Pokemon_Battles/cmake-build-debug

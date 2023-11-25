@@ -1,0 +1,3 @@
+/Users/ayaan/CLionProjects/Pokemon_Battles/cmake-build-debug/CMakeFiles/Pokemon_Battles.dir
+/Users/ayaan/CLionProjects/Pokemon_Battles/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/ayaan/CLionProjects/Pokemon_Battles/cmake-build-debug/CMakeFiles/rebuild_cache.dir
