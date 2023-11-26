@@ -4,7 +4,8 @@
 
 #include "Pokemon.h"
 #include <iostream>
-#include <list>
+#include <sstream>
+#include <iomanip>
 using namespace std;
 
 string lowerString(string str){
@@ -37,8 +38,13 @@ void Pokemon::RegisterAttack(Attack a) {
     }
 }
 
-void Pokemon::ExecuteAttack(Pokemon target, const string& attack_name) {
-    cout << Effectiveness(target.TYPE) << endl;
+void Pokemon::ExecuteAttack(Pokemon &target, const string& attack_name) {
+    stringstream stream1;
+    float e_constant = EffectivenessConstant(target.TYPE);
+    stream1 << fixed << setprecision(1) << e_constant;
+    string constant_string = stream1.str();
+
+    //https://stackoverflow.com/questions/29200635/convert-float-to-string-with-precision-number-of-decimal-digits-specified
     Attack *attack = nullptr;
     for (int i = 0; i < 3; ++i) {
         if (lowerString(attacks[i]->NAME) == lowerString(attack_name)){
@@ -47,12 +53,41 @@ void Pokemon::ExecuteAttack(Pokemon target, const string& attack_name) {
         }
     }
 
+    stringstream stream2;
+    float damage = attack->DAMAGE * e_constant;
+    stream2 << fixed << setprecision(1) << damage;
+    string damage_string = stream2.str();
+
+
     cout << this->NAME + " Used " + attack->NAME + " on " + target.NAME << endl;
-    cout << "It did " + to_string(attack->DAMAGE)  + " Damage" << endl;
-    cout << "It was [EFFECTIVE LEVEL]" << endl;
+    cout << "It did " + damage_string  + " Damage (x" + constant_string + ")" << endl;
+    cout << "It was " + EffectivenessText(e_constant) << endl;
+    cout << "" << endl;
+
+    target.TakeDamage(damage);
 }
 
-float Pokemon::Effectiveness(const POKEMON_TYPE &target) {
+void Pokemon::TakeDamage(float damage) {
+    this->HEALTH -= damage;
+    if (this->HEALTH <= 0){
+        cout << this->NAME + " has been defeated" << endl;
+    }
+}
+
+string Pokemon::AttackDialogue(Pokemon target){
+    cout << target.NAME + "|" + to_string(target.HEALTH) + "hp" << endl;
+
+    for (int i = 0; i < 3; ++i) {
+        cout << to_string(i+1) + ". ";
+        cout << attacks[i]->NAME;
+        cout << "(" + to_string(attacks[i]->DAMAGE) + " dmg)" << endl;
+    }
+    int result;
+    cin >> result;
+    return attacks[result-1]->NAME;
+}
+
+float Pokemon::EffectivenessConstant(const POKEMON_TYPE &target) {
     POKEMON_TYPE playerType = this->TYPE;
     float effectiveness = 1.0;
     vector<float> effectivenessChart; // 6 long because there are 6 types
@@ -80,4 +115,18 @@ float Pokemon::Effectiveness(const POKEMON_TYPE &target) {
     //https://stackoverflow.com/questions/16747591/how-to-get-an-element-at-specified-index-from-c-list
     effectiveness = effectivenessChart[int(target)];
     return effectiveness;
+}
+
+string Pokemon::EffectivenessText(const float &effectivenessConstant){
+    string text = "";
+    if (effectivenessConstant == 1.0){
+        text = "Normal";
+    }else if(effectivenessConstant == 2.0){
+        text = "Very Effective";
+    } else if (effectivenessConstant == 0.5f){
+        text = "Weak";
+    }else{
+        text = "Negated";
+    }
+    return text;
 }

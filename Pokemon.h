@@ -31,14 +31,16 @@ class Pokemon {
         POKEMON_TYPE TYPE;
         int HEALTH;
         Attack *attacks[3] = {nullptr, nullptr, nullptr};
-
         Pokemon(string name, POKEMON_TYPE type, int health);
 
     void RegisterAttack(Attack a);
 
-    void ExecuteAttack(Pokemon target, const string& attack_name);
-    void TakeDamage(Pokemon attacker);
-    float Effectiveness(const POKEMON_TYPE &target);
+    void ExecuteAttack(Pokemon& target, const string& attack_name);
+    string AttackDialogue(Pokemon target);
+    void TakeDamage(float damage);
+
+    float EffectivenessConstant(const POKEMON_TYPE &target);
+    static string EffectivenessText(const float &effectivenessConstant);
 };
 
 
