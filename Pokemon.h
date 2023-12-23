@@ -14,7 +14,8 @@ enum class POKEMON_TYPE{
     ElECTRIC,
     GROUND,
     ICE,
-    NORMAL
+    NORMAL,
+    FAIRY
 };
 
 class Attack{

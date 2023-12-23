@@ -93,23 +93,26 @@ float Pokemon::EffectivenessConstant(const POKEMON_TYPE &target) {
     vector<float> effectivenessChart; // 6 long because there are 6 types
     switch (playerType) {
         //Pokemon info from: https://pokemondb.net/type (calculating from the attacking perspective)
-        case POKEMON_TYPE::WATER: //order is: water, fire, electric, ground, ice, normal
+        case POKEMON_TYPE::WATER: //order is: water, fire, electric, ground, ice, normal, fairy
             effectivenessChart = {0.5f, 2.0, 1.0, 2.0, 1.0, 1.0};
             break;
         case POKEMON_TYPE::FIRE:
-            effectivenessChart = {0.5f, 0.5f, 1.0, 1.0, 2.0, 1.0};
+            effectivenessChart = {0.5f, 0.5f, 1.0, 1.0, 2.0, 1.0, 1.0};
             break;
         case POKEMON_TYPE::ElECTRIC:
-            effectivenessChart = {2.0, 1.0, 0.5f, 0.0, 1.0, 1.0};
+            effectivenessChart = {2.0, 1.0, 0.5f, 0.0, 1.0, 1.0, 1.0};
             break;
         case POKEMON_TYPE::GROUND:
-            effectivenessChart = {1.0, 2.0, 2.0, 1.0, 1.0, 1.0};
+            effectivenessChart = {1.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0};
             break;
         case POKEMON_TYPE::ICE:
-            effectivenessChart = {0.5f, 0.5f, 1.0, 2.0, 0.5, 1.0};
+            effectivenessChart = {0.5f, 0.5f, 1.0, 2.0, 0.5, 1.0, 1.0};
             break;
         case POKEMON_TYPE::NORMAL:
-            effectivenessChart = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+            effectivenessChart = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+            break;
+        case POKEMON_TYPE::FAIRY:
+            effectivenessChart = {1.0, 0.5f, 1.0, 1.0, 1.0, 1.0, 1.0};
             break;
     }
     //https://stackoverflow.com/questions/16747591/how-to-get-an-element-at-specified-index-from-c-list
